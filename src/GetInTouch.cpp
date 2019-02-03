@@ -96,6 +96,25 @@ bool GITAction::addSlider(String label, int min, int max, int start)
 	}
 }
 
+bool GITAction::addPixelMatrix(uint8_t cols, uint8_t rows)
+{
+	if(cols > 32) cols = 32;
+    if(rows > 32) rows = 32;
+  
+	if(inputFieldCnt < MAX_NUMBER_OF_INPUTS)
+	{
+		inputFields +=  "%MATRIX~~" + String(cols) + "|" + String(rows);
+		parameterName[inputFieldCnt] = label;
+		inputFieldCnt++;
+		
+		return true;
+	}  		
+	else
+	{
+		return false;
+	}
+}
+
 bool GITAction::isTriggered()
 {
 	return triggered;
@@ -222,15 +241,16 @@ void GetInTouch::run()
 
       if(c == 13)
         analyzeString();
-      else if(c != 10)
-        readString += c; //makes the string readString
+      else if(c > 31)    //accept text characters only.
+        readString += c;
     }
   }
 }
 
 void GetInTouch::analyzeString()
 {
-  if(readString.equals("getActions"))
+  //if(readString.equals("getActions"))
+  if(readString.indexOf("getActions") >= 0)
   {
     sendActions();
   }

@@ -48,6 +48,15 @@ class GITAction
     *  @return will return false when the parameters are wrong or invalid. Otherwise it will return true.
     */    	
 	bool addSlider(String label, int min, int max, int start);
+    
+    /** will add a Matrix to your action. The viewer will get displayed this Pixel Matrix if he try to trigger this action.
+    *  This function should be called in your setup.
+    *  @param[in] label will be displayed together with the slider value.
+    *  @param[in] cols number of cols of the matrix
+    *  @param[in] rows number of rows of the matrix
+    *  @return will return false when the parameters are wrong or invalid. Otherwise it will return true.
+    */    	
+    bool addPixelMatrix(String label, uint8_t cols, uint8_t rows);
 	
 	/** When your action is finished you have to call this method to release it in your extension.
     *  As long as you don't call this function, your action will be disabled for the viewers in the extension.
