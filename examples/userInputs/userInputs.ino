@@ -27,13 +27,13 @@
 
 //create GetInTouch library object and the actions
 GetInTouch git;
-GITAction ledBlink("LED blink");
-GITAction annoyingApple("annoying apple");
+GITAction ledBlinkAction("LED Blink");
+GITAction displayAction("LCD Display");
 
 const int LED_RED = 13;
 const int LED_GRN = 12;
 const int LED_BLU = 11;
-const int RS = 12, EN = 11, D4 = 5, D5 = 4, D6 = 3, D7 = 2;
+const int RS = 7, EN = 6, D4 = 5, D5 = 4, D6 = 3, D7 = 2;
 LiquidCrystal lcd(RS, EN, D4, D5, D6, D7);
 
 void setup() {
@@ -46,28 +46,28 @@ void setup() {
   lcd.begin(16, 2);
 
   //add the user input fields to the actions:
-  ledBlink.addCombobox("select color", "red|green|blue");
-  annoyingApple.addTextbox("annoying text");
+  ledBlinkAction.addCombobox("Select Color", "red|green|blue");
+  displayAction.addTextbox("Your Message");
 
   //initialize the GetInTouch library
   git.init();
 
   //add your actions to the library
-  git.addAction(&ledBlink);
-  git.addAction(&annoyingApple);
+  git.addAction(&ledBlinkAction);
+  git.addAction(&displayAction);
 }
 
 void loop() {
   //call this method frequently to make the GetInTouch library work
   git.run();
 
-  if(ledBlink.isTriggered()) {
+  if(ledBlinkAction.isTriggered()) {
       //activate the choosen LED
-      if(ledBlink.getParameter(0).equals("red"))
+      if(ledBlinkAction.getParameter(0).equals("red"))
         digitalWrite(LED_RED, HIGH);
-      else if(ledBlink.getParameter(0).equals("green"))
+      else if(ledBlinkAction.getParameter(0).equals("green"))
         digitalWrite(LED_GRN, HIGH);
-      else if(ledBlink.getParameter(0).equals("green"))
+      else if(ledBlinkAction.getParameter(0).equals("blue"))
         digitalWrite(LED_BLU, HIGH);
 
       delay(2000);
@@ -78,15 +78,15 @@ void loop() {
       digitalWrite(LED_BLU, LOW);
 
       //tell the server that the action is now ended
-      ledBlink.ended();
+      ledBlinkAction.ended();
   }
   
-  if(annoyingApple.isTriggered()) {
+  if(displayAction.isTriggered()) {
       lcd.clear();
-      lcd.print("User: " + annoyingApple.getUsername());
+      lcd.print("User: " + displayAction.getUsername());
       lcd.setCursor(0,1);
-      lcd.print(annoyingApple.getParameter(0));
-      annoyingApple.ended();
+      lcd.print(displayAction.getParameter(0));
+      displayAction.ended();
   }
 }
 

@@ -27,9 +27,13 @@ class GITAction
 	/** will add a textbox to your action. The viewer will get displayed this textbox if he try to trigger this action.
     *  This function should be called in your setup.
     *  @param[in] label will be displayed together with the textbox.
+    *  @param[in] min minimum textlength
+    *  @param[in] max maximum textlength
     *  @return will return false when the parameters are wrong or invalid. Otherwise it will return true.
     */
     bool addTextbox(String label);
+    bool addTextbox(String label, uint8_t min, uint8_t max);
+    
 	
 	/** will add a combobox selection to your action. The viewer will get displayed this combobox if he try to trigger this action.
     *  This function should be called in your setup.

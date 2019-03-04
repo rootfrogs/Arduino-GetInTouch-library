@@ -1,6 +1,6 @@
 /*
  * Example of GetInTouch Arduino
- * name: parallelizeActions
+ * name: parallelActions
  * author: rootfrogs UG
  * 
  * setting:
@@ -9,9 +9,9 @@
  * description: 
  * This example shows how to handle long time running actions.
  * Another action can be started during the first one runs.
- * action 1 (LED blink):
+ * action 1 (first LED):
  *   let the LED on pin 13 blink for 6 seconds
- * action 2 (annoying apple):
+ * action 2 (second LED):
  *   turns the LED on pin 10 on for 6 seconds
  */
 
@@ -19,8 +19,8 @@
 
 //create GetInTouch library object and the actions
 GetInTouch git;
-GITAction ledBlink("LED blink");
-GITAction annoyingApple("annoying apple");
+GITAction firstLedBlinkAction("first LED");
+GITAction secondLedOnAction("second LED");
 
 void setup() {
   //set LED pins to output-mode
@@ -31,8 +31,8 @@ void setup() {
   git.init();
   
   //add your actions to the library
-  git.addAction(&ledBlink);
-  git.addAction(&annoyingApple);
+  git.addAction(&firstLedBlinkAction);
+  git.addAction(&secondLedOnAction);
 }
 
 void loop() {
@@ -42,14 +42,14 @@ void loop() {
 
   //If an action was triggered from you viewers, the isTriggered() method will return true. 
   //Keep in mind: The method returns true until ended() method is called
-  if(ledBlink.isTriggered()) {
-      doLedBlink();		//ledBlink was triggered, do the LED stuff
+  if(firstLedBlinkAction.isTriggered()) {
+      doFirstLedBlinkAction();		//firstLedBlinkAction was triggered, do the LED stuff
   }
-  if(annoyingApple.isTriggered()) {
-      doAnnoyingApple();	//annoyingApple was triggered, do the annoyingApple stuff
+  if(secondLedOnAction.isTriggered()) {
+      dosecondLedOnAction();	//secondLedOnAction was triggered, do the firstLedBlinkAction stuff
   }
 }
-void doLedBlink()
+void doFirstLedBlinkAction()
 {
   //Do your action things here. Rmember: This method will be called until you call the ended() method.
   static int cnt = 0;
@@ -63,10 +63,10 @@ void doLedBlink()
 
     //Now, the LED blinking is finished and we can call the ended() method. 
     //This will release the action and the next viewer can trigger it:
-    ledBlink.ended();
+    firstLedBlinkAction.ended();
   }
 }
-void doAnnoyingApple()
+void dosecondLedOnAction()
 {
   //Do your action things here. Rmember: This method will be called until you call the ended() method.
   static int cnt = 0;
@@ -80,7 +80,7 @@ void doAnnoyingApple()
 
     //Now, the LED blinking is finished and we can call the ended() method. 
     //This will release the action and the next viewer can trigger it:
-    annoyingApple.ended();
+    secondLedOnAction.ended();
   }
 }
 

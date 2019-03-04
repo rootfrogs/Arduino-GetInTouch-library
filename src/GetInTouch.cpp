@@ -15,14 +15,22 @@ GITAction::GITAction(String _name)
 
 bool GITAction::addTextbox(String label)
 {
+	addTextbox(label, 5, 40);
+}
+
+bool GITAction::addTextbox(String label, uint8_t min, uint8_t max)
+{
 	if(label.length() > 40)
 	{
 		label = label.substring(0,40);
 	}
+    
+    if(max <= min)
+        max = min + 1;
 	
 	if(inputFieldCnt < MAX_NUMBER_OF_INPUTS)
 	{
-		inputFields += "%TEXT~" + label;
+		inputFields += "%TEXT~" + label + "~" + String(min) + "|" + String(max);
 		parameterName[inputFieldCnt] = label;
 		inputFieldCnt++;
 		return true;
@@ -96,7 +104,7 @@ bool GITAction::addSlider(String label, int min, int max, int start)
 	}
 }
 
-bool GITAction::addPixelMatrix(uint8_t cols, uint8_t rows)
+bool GITAction::addPixelMatrix(String label, uint8_t cols, uint8_t rows)
 {
 	if(cols > 32) cols = 32;
     if(rows > 32) rows = 32;
