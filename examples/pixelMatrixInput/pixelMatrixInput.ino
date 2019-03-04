@@ -24,7 +24,7 @@ GITAction ledMatrix("draw a pixel image");
 #define MATRIX_PIN         3      //Pin where the WS2821 matrix is connected to
 #define MATRIX_COLS        8      //number of coloumns of the matrix (1-32 allowed)
 #define MATRIX_ROWS        8      //number of rows of the matrix (1-32 allowed)
-#define MATRIX_BRIGHTNESS  10     //The brightness the LEDs should shine (1-255)
+#define MATRIX_BRIGHTNESS  10     //The brightness the LEDs (1-255)
 
 Adafruit_NeoPixel neoPixels = Adafruit_NeoPixel(MATRIX_COLS * MATRIX_ROWS, MATRIX_PIN, NEO_GRB + NEO_KHZ800);
 
@@ -61,21 +61,27 @@ void showOnMatrix(String data)
   for(uint8_t i = 0; i < data.length() && i < (MATRIX_COLS * MATRIX_ROWS); i++)
   {
     if(data.charAt(i)=='1')
+      // red
       neoPixels.setPixelColor(i, MATRIX_BRIGHTNESS,0,0);
     else if(data.charAt(i)=='2')
+      // green
       neoPixels.setPixelColor(i, 0, MATRIX_BRIGHTNESS,0);
     else if(data.charAt(i)=='3')
+      // blue
       neoPixels.setPixelColor(i, 0, 0, MATRIX_BRIGHTNESS);
     else if(data.charAt(i)=='4')
+      // white
       neoPixels.setPixelColor(i, MATRIX_BRIGHTNESS, MATRIX_BRIGHTNESS, MATRIX_BRIGHTNESS);
     else if(data.charAt(i)=='5')
+      // yellow
       neoPixels.setPixelColor(i, MATRIX_BRIGHTNESS, MATRIX_BRIGHTNESS, 0);
     else if(data.charAt(i)=='6')
+      // orange
       neoPixels.setPixelColor(i, MATRIX_BRIGHTNESS, (MATRIX_BRIGHTNESS >> 1), 0);
     else 
+      // black
       neoPixels.setPixelColor(i, 0, 0, 0);
   }
   
   neoPixels.show();
 }
-

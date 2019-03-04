@@ -51,7 +51,7 @@ void loop() {
 }
 void doFirstLedBlinkAction()
 {
-  //Do your action things here. Rmember: This method will be called until you call the ended() method.
+  //Do your action things here. Remember: This method will be called until you call the ended() method.
   static int cnt = 0;
   if(!(cnt % 20)) {
     digitalWrite(13, !digitalRead(13));
@@ -68,7 +68,7 @@ void doFirstLedBlinkAction()
 }
 void dosecondLedOnAction()
 {
-  //Do your action things here. Rmember: This method will be called until you call the ended() method.
+  //Do your action things here. Remember: This method will be called until you call the ended() method.
   static int cnt = 0;
   if(cnt == 0) {
     digitalWrite(10, HIGH);
@@ -83,5 +83,3 @@ void dosecondLedOnAction()
     secondLedOnAction.ended();
   }
 }
-
-
