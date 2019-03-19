@@ -170,7 +170,7 @@ int GITAction::getIntParameter(uint8_t index)
 {
 	if(index < MAX_NUMBER_OF_INPUTS)
 	{
-		return parameterValue[index-1].toInt();
+		return parameterValue[index].toInt();
 	}
 	else
 	{
